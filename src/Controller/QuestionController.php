@@ -23,7 +23,7 @@ class QuestionController extends AbstractController
 
         return new Response($html);
         */
-
+        throw new \Exception("error to test sentry.io");
         return $this->render('question/homepage.html.twig');
     }
 
