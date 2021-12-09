@@ -28,7 +28,7 @@ class QuestionController extends AbstractController
      */
     public function homepage(QuestionRepository $repository)
     {
-        $questions = $repository->findBy([], ['askedAt' => 'DESC']);
+        $questions = $repository->findAllPublishedQuestion();
         return $this->render('question/homepage.html.twig', ['questions' => $questions]);
     }
 
@@ -62,16 +62,12 @@ EOF
     /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show($slug, MarkdownHelper $markdownHelper, EntityManagerInterface $entityManager)
+    public function show(Question $question)
     {
         if ($this->isDebug) {
             $this->logger->info('We are in debug mode!');
         }
-        $repository = $entityManager->getRepository(Question::class);
-        $question = $repository->findOneBy(['slug'=> $slug]);
 
-        if(!$question)
-            throw $this->createNotFoundException('404 Not found !');
         $answers = [
             'Make sure your cat is sitting `purrrfectly` still 🤣',
             'Honestly, I like furry shoes better than MY cat',
