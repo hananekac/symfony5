@@ -8,6 +8,7 @@ use App\Service\MarkdownHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -53,8 +54,9 @@ EOF
 
         if ($random > 30) {
             $question->setAskedAt(new \DateTimeImmutable(sprintf('-%d days', rand(1, 100))));
-        }
 
+        }
+        $question->setVotes(rand(-10,30));
         $entityManager->persist($question);
         $entityManager->flush($question);
         return new Response(sprintf('id object : %d  question : %s',$question->getId(), $question->getName()));
@@ -78,5 +80,22 @@ EOF
             'question' => $question,
             'answers' => $answers,
         ]);
+    }
+
+    /**
+     * @param Question $question
+     * @param Request $request
+     * @Route ("/questions/{slug}/vote", name="app_question_vote", methods={"POST"})
+     */
+    public function questionVote(Question $question, Request $request, EntityManagerInterface $entityManager){
+        $direction = $request->request->get('direction');
+        if ($direction === 'up'){
+            $question->upVote();
+        }elseif( $direction === 'down'){
+            $question->downVote();
+        }
+        $entityManager->flush();
+        return $this->redirectToRoute('app_question_show', ['slug' => $question->getSlug()]);
+
     }
 }

@@ -37,6 +37,11 @@ class Question
      */
     private $askedAt;
 
+    /**
+     * @ORM\Column(type="integer",options={"default":0})
+     */
+    private $votes = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,35 @@ class Question
     public function setAskedAt(?\DateTimeImmutable $askedAt): self
     {
         $this->askedAt = $askedAt;
+
+        return $this;
+    }
+
+    public function getVotes(): int
+    {
+        return $this->votes;
+    }
+
+    public function getVotesString(): string
+    {
+        $symbol = ($this->votes == 0) ? '' : $this->votes > 0 ? '+' : '-';
+        return sprintf('%s %d',$symbol, abs($this->votes));
+    }
+
+    public function upVote(): self
+    {
+        $this->votes++;
+        return $this;
+    }
+    public function downVote():self
+    {
+        $this->votes--;
+        return $this;
+    }
+
+    public function setVotes(int $votes): self
+    {
+        $this->votes = $votes;
 
         return $this;
     }
