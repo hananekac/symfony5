@@ -36,30 +36,12 @@ class QuestionController extends AbstractController
     /**
      * @Route ("/questions/new", name="app_question_create")
      */
-    public function new(EntityManagerInterface $entityManager){
-        $question = new Question();
-        $random = rand(1,100);
-        $question->setName("question n°".$random);
-        $question->setSlug("question-n-".$random);
-        $question->setQuestion(<<< EOF
-Hi! So... I'm having a *weird* day. Yesterday, I cast a spell
-to make my dishes wash themselves. But while I was casting it,
-I slipped a little and I think `I also hit my pants with the spell`.
-When I woke up this morning, I caught a quick glimpse of my pants
-opening the front door and walking out! I've been out all afternoon
-(with no pants mind you) searching for them.
-Does anyone have a spell to call your pants back?
-EOF
-        );
+    public function new(){
 
-        if ($random > 30) {
-            $question->setAskedAt(new \DateTimeImmutable(sprintf('-%d days', rand(1, 100))));
-
-        }
-        $question->setVotes(rand(-10,30));
-        $entityManager->persist($question);
-        $entityManager->flush($question);
-        return new Response(sprintf('id object : %d  question : %s',$question->getId(), $question->getName()));
+        /*
+         * TODO
+         */
+        return new Response(sprintf('Homepage : website for witches and wizards !! New code to be added soon'));
     }
     /**
      * @Route("/questions/{slug}", name="app_question_show")
