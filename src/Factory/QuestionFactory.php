@@ -51,10 +51,7 @@ final class QuestionFactory extends ModelFactory
     {
 
         return $this
-            ->afterInstantiate(function(Question $question): void {
-                $slugger = new AsciiSlugger();
-                $question->setSlug($slugger->slug($question->getName()));
-            })
+            //->afterInstantiate(function(Question $question): void {})
         ;
     }
 
