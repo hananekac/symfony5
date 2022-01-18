@@ -62,7 +62,8 @@
                             {{ answer.content|parse_markdown }}
                             <p>-- {{ answer.username }}</p>
                         </div>
-                        <div  data-id="{{ answer.id }}" class="vote-arrows flex-fill pt-2 js-vote-arrows" style="min-width: 90px;">
+                        <div  data-id="{{ answer.id }}" class="vote-arrows flex-fill pt-2 js-vote-arrows text-end" style="min-width: 90px;">
+                            <span>{{ answer.createdAt|ago }}</span>
                             <a class="vote-up" data-direction="up"><i class="far fa-arrow-alt-circle-up"></i></a>
                             <a class="vote-down" data-direction="down"><i class="far fa-arrow-alt-circle-down"></i></a>
                             <span><span class="js-vote-total">{{ answer.votes }}</span></span>

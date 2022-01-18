@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../jobeet/.idea/jobeet.iml" filepath="$PROJECT_DIR$/../jobeet/.idea/jobeet.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/sf5.iml" filepath="$PROJECT_DIR$/.idea/sf5.iml" />
     </modules>
   </component>
