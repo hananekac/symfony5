@@ -8,6 +8,7 @@ use http\QueryString;
 use Zenstruck\Foundry\RepositoryProxy;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service_locator;
 
 /**
  * @extends ModelFactory<Answer>
@@ -43,7 +44,8 @@ final class AnswerFactory extends ModelFactory
             'username' => self::faker()->userName(),
             'votes' => self::faker()->numberBetween(-20,50),
             'createdAt' => self::faker()->dateTimeThisYear(),
-            'question' => QuestionFactory::random()
+            'question' => QuestionFactory::random(),
+            'status' => self::faker()->randomElement(Answer::QUESTION_STATUS)
         ];
     }
 
