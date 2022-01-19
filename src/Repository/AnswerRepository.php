@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Answer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,26 @@ class AnswerRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Answer::class);
+    }
+
+    /*
+     * @Return Answer[]
+     */
+    public function findMostPopular():array
+    {
+        return $this->createQueryBuilder('a')
+            ->addCriteria(self::getApprovedAnswers())
+            ->orderBy('a.votes','DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+    /*
+     * @Return Criteria
+     */
+    public static function getApprovedAnswers():Criteria
+    {
+        return  Criteria::create()->andWhere(Criteria::expr()->eq('status', Answer::QUESTION_STATUS[0]));
     }
 
     // /**

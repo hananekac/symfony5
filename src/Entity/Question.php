@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -155,9 +156,7 @@ class Question
      */
     public function getApprovedAnswers(): Collection
     {
-        $criteria = new Criteria();
-        $criteria->where(Criteria::expr()->eq('status', Answer::QUESTION_STATUS[0]));
-        return $this->answers->matching($criteria);
+        return $this->answers->matching(AnswerRepository::getApprovedAnswers());
     }
 
     public function addAnswer(Answer $answer): self
