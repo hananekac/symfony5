@@ -26,6 +26,8 @@ class AnswerRepository extends ServiceEntityRepository
     public function findMostPopular():array
     {
         return $this->createQueryBuilder('a')
+            ->innerJoin('a.question', 'q')
+            ->addSelect('q')
             ->addCriteria(self::getApprovedAnswers())
             ->orderBy('a.votes','DESC')
             ->setMaxResults(10)
