@@ -21,10 +21,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_popular_answers') }}">Answers</a>
                 </li>
+                <li class="nav-item">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="nav-link" href="{{ path('admin_dashboard') }}">Admin</a>
+                    {% endif %}
+                </li>
             </ul>
         </div>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            Hello {{ app.user.displayName }} !
+            <a href="{{ path('app_logout') }}" class="nav-link">Logout</a>
+        {% else %}
         <a href="{{ path('app_login') }}" class="nav-link">Login</a>
         <a href="" class="nav-link bg-black text-white">Sign up</a>
+        {% endif %}
     </div>
 </nav>
 

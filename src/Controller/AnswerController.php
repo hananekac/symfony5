@@ -6,6 +6,7 @@ use App\Entity\Answer;
 use App\Repository\AnswerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,6 +14,7 @@ class AnswerController extends AbstractController
 {
     /**
      * @Route("/answers/{id}/vote/{direction<up|down>}", methods="POST")
+     * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
      */
     public function commentVote(Answer $answer, $direction, LoggerInterface $logger, EntityManagerInterface $entityManager)
     {

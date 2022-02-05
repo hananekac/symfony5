@@ -20,7 +20,14 @@ class AppFixtures extends Fixture
             ];
         });
         AnswerFactory::createMany(100);
-        UserFactory::createOne(['email' => 'cat.admin@yopmail.com']);
+        UserFactory::createOne([
+            'email' => 'cat.admin@yopmail.com',
+            'roles' => ['ROLE_ADMIN']
+        ]);
+        UserFactory::createOne([
+            'email' => 'user@yopmail.com',
+            'roles' => ['ROLE_USER']
+        ]);
         UserFactory::createMany(10);
         $manager->flush();
     }

@@ -13,9 +13,11 @@
         </div>
         <div data-id="{{ answer.id }}" class="col-2 vote-arrows  js-vote-arrows text-end">
             <span>{{ answer.createdAt|ago }}</span>
-            <a class="vote-up" data-direction="up"><i class="far fa-arrow-alt-circle-up"></i></a>
-            <a class="vote-down" data-direction="down"><i class="far fa-arrow-alt-circle-down"></i></a>
-            <span><span class="js-vote-total">{{ answer.votes }}</span></span>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <a class="vote-up" data-direction="up"><i class="far fa-arrow-alt-circle-up"></i></a>
+                <a class="vote-down" data-direction="down"><i class="far fa-arrow-alt-circle-down"></i></a>
+                <span><span class="js-vote-total">{{ answer.votes }}</span></span>
+            {% endif %}
         </div>
     </div>
 </li>
