@@ -29,7 +29,8 @@ class QuestionRepository extends ServiceEntityRepository
         return $this->addIsAskedAtQueryBuilder()
             ->andWhere('q.askedAt IS NOT NULL')
             ->leftJoin('q.tags', 'tag')
-            ->addSelect('tag')
+            ->innerJoin('q.owner', 'user')
+            ->addSelect(['tag', 'user'])
             ->orderBy('q.askedAt', 'DESC')
         ;
     }
