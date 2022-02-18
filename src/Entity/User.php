@@ -50,6 +50,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $questions;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified=false;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
@@ -169,9 +174,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getDisplayName(): string{
         return $this->getFirstName()?: $this->getEmail();
     }
-    /**
-     * @Groups("user:read")
-     */
+
     public function getAvatarUri(int $size = 32): string
     {
         return 'https://ui-avatars.com/api/?' . http_build_query([
@@ -207,6 +210,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $question->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
