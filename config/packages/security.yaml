@@ -29,7 +29,7 @@ security:
               enable_csrf: true
 
             switch_user: true
-
+            login_throttling: true
             logout: true
             remember_me:
               secret: '%kernel.secret%'
